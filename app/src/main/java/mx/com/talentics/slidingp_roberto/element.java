@@ -12,5 +12,6 @@ public class element {
     public ImageButton img;
     public int column;
     public int line;
+    public int value;
     public RelativeLayout.LayoutParams params;
 }
