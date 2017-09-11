@@ -31,15 +31,20 @@ public class index extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), game.class);
                 String number = mnumber.getText().toString();
-                if(Integer.parseInt(number)>2 &&Integer.parseInt(number)<8)
-                {
-                    i.putExtra("number", number);
-                    startActivity(i);
-                }
-                else{
-                    Toast toast = Toast.makeText(cont, "Numero no válido", Toast.LENGTH_LONG);
-                    toast.show();
-                }
+                try {
+                    if(Integer.parseInt(number)>2 &&Integer.parseInt(number)<8)
+                    {
+                        i.putExtra("number", number);
+                        startActivity(i);
+                    }
+                    else{
+                        Toast toast = Toast.makeText(cont, "Numero no válido", Toast.LENGTH_LONG);
+                        toast.show();
+                    };
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Inserta un número", Toast.LENGTH_SHORT).show();
+                };
+
 
             }
         });
