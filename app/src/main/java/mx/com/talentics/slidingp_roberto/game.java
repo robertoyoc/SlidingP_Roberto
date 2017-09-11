@@ -117,6 +117,9 @@ public class game extends AppCompatActivity {
             given= Integer.parseInt(number);
             pila = random(given);
             render(given);
+
+            AlertDialog diaBox = welcome();
+            diaBox.show();
             addListeners(Bots);
             location(given);
 
@@ -240,7 +243,7 @@ public class game extends AppCompatActivity {
 
     public Deque<Integer> random(int given) {
         Deque<Integer> stack = new ArrayDeque<Integer>();
-        boolean real = true;
+        boolean real = true; //cambiar a false para probar una distribución sencilla
         Random r = new Random();
         if(real) {
             int a;
@@ -251,56 +254,55 @@ public class game extends AppCompatActivity {
                 stack.push(a);
             }
         }else {
-
-            stack.push(48);
-            stack.push(0);
-            stack.push(47);
-            stack.push(46);
-            stack.push(45);
-            stack.push(44);
-            stack.push(43);
-            stack.push(42);
-            stack.push(41);
-            stack.push(40);
-            stack.push(39);
-            stack.push(38);
-            stack.push(37);
-            stack.push(36);
-            stack.push(35);
-            stack.push(34);
-            stack.push(33);
-            stack.push(32);
-            stack.push(31);
-            stack.push(30);
-            stack.push(29);
-            stack.push(28);
-            stack.push(27);
-            stack.push(26);
-            stack.push(25);
-            stack.push(24);
-            stack.push(23);
-            stack.push(22);
-            stack.push(21);
-            stack.push(20);
-            stack.push(19);
-            stack.push(18);
-            stack.push(17);
-            stack.push(16);
-            stack.push(15);
-            stack.push(14);
-            stack.push(13);
-            stack.push(12);
-            stack.push(11);
-            stack.push(10);
-            stack.push(9);
-            stack.push(8);
-            stack.push(7);
-            stack.push(6);
-            stack.push(5);
-            stack.push(4);
-            stack.push(3);
-            stack.push(2);
             stack.push(1);
+            stack.push(0);
+            stack.push(2);
+            stack.push(3);
+            stack.push(4);
+            stack.push(5);
+            stack.push(6);
+            stack.push(7);
+            stack.push(8);
+            stack.push(9);
+            stack.push(10);
+            stack.push(11);
+            stack.push(12);
+            stack.push(13);
+            stack.push(14);
+            stack.push(15);
+            stack.push(16);
+            stack.push(17);
+            stack.push(18);
+            stack.push(19);
+            stack.push(20);
+            stack.push(21);
+            stack.push(22);
+            stack.push(23);
+            stack.push(24);
+            stack.push(25);
+            stack.push(26);
+            stack.push(27);
+            stack.push(28);
+            stack.push(29);
+            stack.push(30);
+            stack.push(31);
+            stack.push(32);
+            stack.push(33);
+            stack.push(34);
+            stack.push(35);
+            stack.push(36);
+            stack.push(37);
+            stack.push(38);
+            stack.push(39);
+            stack.push(40);
+            stack.push(41);
+            stack.push(42);
+            stack.push(43);
+            stack.push(44);
+            stack.push(45);
+            stack.push(46);
+            stack.push(47);
+            stack.push(48);
         }
 
 
@@ -316,20 +318,29 @@ public class game extends AppCompatActivity {
     }
 
     public boolean checkResolved(final ArrayList<ArrayList> bots){
-        boolean result = true;
+        boolean result = true, result2 = true, result3 = true;
         int el=1;
+        int el2 = given*given-1;
         for (ArrayList<element> line: bots) {
             for (final element column: line){
                 if (column.value!=0){
                     if(column.value!=el){
                         result = false;
                     }
+                    if(column.value!=el2){
+                        result2=false;
+                    }
+                    if(column.value!=(column.column*given+column.line+1)){
+                        result3 = false;
+                    }
+
                 }
                 el++;
-
+                el2--;
             }
         }
-        if(result){
+
+        if(result||result2||result3){
             AlertDialog diaBox = gameover();
             diaBox.show();
         }
@@ -353,6 +364,26 @@ public class game extends AppCompatActivity {
                         dialog.dismiss();
                         Intent i = new Intent(getApplicationContext(), index.class);
                         startActivity(i);
+                    }
+
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+    private AlertDialog welcome()
+    {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Bienvenido a Sliding Puzzle")
+                .setMessage("Presiona las imagenes para mover, presiona el botón de atrás para salir. Solo se permite mover las piezas que son vecinas al número 0.")
+                .setIcon(R.drawable.pensando)
+
+                .setPositiveButton("Adelante!", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        dialog.dismiss();
                     }
 
                 })
